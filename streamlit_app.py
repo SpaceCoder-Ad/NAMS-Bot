@@ -40,7 +40,7 @@ logging.basicConfig(
     level=logging.INFO
 )
 
-logger = logging.getLogger(__name__
+logger = logging.getLogger(__name__)
 
 # Function to handle button clicks
 def button_click(update: Update, context: CallbackContext) -> None:
