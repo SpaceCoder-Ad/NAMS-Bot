@@ -1,91 +1,8 @@
 import logging
 import threading
 import streamlit as st
-# import datetime
-# import time
-# import os 
 from telegram import Update ,ReplyKeyboardMarkup, Bot, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext, CallbackQueryHandler
-
-# # Function to get the bot status
-# def get_bot_status():
-#     if os.path.exists("bot_status.txt"):
-#         with open("bot_status.txt", "r") as f:
-#             return f.read().strip()
-#     else:
-#         return "Stopped"
-
-# # Simulate reading actual start time
-# def get_bot_start_time():
-#     if os.path.exists("start_time.txt"):
-#         with open("start_time.txt", "r") as f:
-#             start_time_str = f.read().strip()
-#             return datetime.datetime.fromisoformat(start_time_str)
-#     return None
-
-# # Function to read log file
-# def read_log_file():
-#     if os.path.exists("bot_log.txt"):
-#         with open("bot_log.txt", "r") as f:
-#             return f.readlines()
-#     return []
-
-# Main Streamlit content
-st.title("Telegram Bot with Streamlit")
-st.write("The bot is running in the background. Interact with it through Telegram.")
-
-# # Fetch bot status and start time
-# bot_status = get_bot_status()
-# start_time = get_bot_start_time()
-
-# # If start_time is None, the bot might not have started
-# if bot_status == "Running" and start_time:
-#     st.write(f"**Bot Status:** {bot_status}")
-#     uptime = datetime.datetime.now() - start_time
-#     st.write(f"**Uptime:** {str(uptime).split('.')[0]}")
-# else:
-#     st.write("**Bot Status:** Stopped")
-
-# # Display recent activity logs
-# st.subheader("Recent Activity:")
-# log_lines = read_log_file()
-# if log_lines:
-#     for line in log_lines:
-#         st.write(line)
-# else:
-#     st.write("No recent activity.")
-
-
-# Simulated bot status and uptime (replace with real data)
-# bot_status = "Running"
-# start_time = datetime.datetime.now() - datetime.timedelta(hours=2, minutes=30)  # Example start time
-
-# st.subheader("How to Use the Bot:")
-# st.write("""
-# 1. Open Telegram and search for the bot by its username.
-# 2. Use any of the following commands:
-#     - `/start` - Start interacting with the bot
-#     - `/help` - Get a list of available commands
-#     - `/services` - View available services
-#     - `/apply` - Submit an application
-#     - `/contact` - Get in touch
-# """)
-
-
-# st.write(f"**Bot Status:** {bot_status}")
-# st.write(f"**Uptime:** {str(datetime.datetime.now() - start_time).split('.')[0]}")
-
-# st.subheader("Recent Activity:")
-# log = ["Bot started", "User1 clicked 'services'", "User2 asked for 'contact' info"]
-
-# for entry in log:
-#     st.write(entry)
-#     time.sleep(1)
-
-# st.subheader("Bot Usage Stats:")
-# st.write("**Total Users:** 152")
-# st.write("**Commands Processed Today:** 84")
-
 
 def send_message(update: Update, text: str, parse_mode='Markdown'):
     if update.callback_query:
@@ -132,23 +49,6 @@ def button_click(update: Update, context: CallbackContext) -> None:
         query.answer()
         logger.info(f"Button clicked: {query.data}")
 
-        # Dictionary mapping button data to functions
-        button_actions = {
-            'services': services,
-            'apply': apply,
-            'contact': contact,
-            'faq': faq,
-            'destinations': destinations,
-            'achievements': achievements
-        }
-        
-        # Get the function associated with the button clicked, if any
-        action = button_actions.get(query.data)
-        if action:
-            action(update, context)  # Call the associated function
-        else:
-            query.message.reply_text("Unknown command. Please try again.")
-        
         # Call the corresponding function based on button click
         if query.data == 'services':
             services(update, context)
@@ -164,7 +64,7 @@ def button_click(update: Update, context: CallbackContext) -> None:
             achievements(update, context)
         else:
             query.message.reply_text("Unknown command. Please try again.")
-    
+
     except Exception as e:
         logger.error(f"Error in button click handler: {e}")
         query.message.reply_text("An error occurred. Please try again.")
@@ -236,6 +136,7 @@ def services(update: Update, context: CallbackContext) -> None:
     # else:
     #     # Respond directly to the message if the command is typed
     #     update.message.reply_text(services_message, parse_mode='Markdown')
+        welcome_message(services_message)
     welcome_message(services_message)
 
 # Function to handle the /destinations command
@@ -504,3 +405,6 @@ def main():
 if __name__ == '__main__':
     bot_thread = threading.Thread(target=main)
     bot_thread.start()
+
+st.title("Telegram Bot with Streamlit")
+st.write("The bot is running in the background. Interact with it through Telegram.")
