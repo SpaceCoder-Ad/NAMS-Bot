@@ -350,11 +350,8 @@ def handle_message(update: Update, context: CallbackContext) -> None:
 # Main function to start the bot
 def main():
     # Replace 'YOUR_API_TOKEN' with the bot token from BotFather
-    # bot_token = st.secrets["7859553921:AAHDfvkoNlX48XZg3dMQZyM7yIfwZMsZMow"]
     bot_token = st.secrets["myapp"]["telegram_bot_token"]
-    # bot_token = st.secrets["telegram_bot_token"]
     updater = Updater(bot_token, use_context=True)
-    # updater = Updater("7859553921:AAHDfvkoNlX48XZg3dMQZyM7yIfwZMsZMow", use_context=True)
     dp = updater.dispatcher
 
     # Register command handlers
