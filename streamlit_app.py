@@ -32,6 +32,7 @@ def read_log_file():
 
 # Main Streamlit content
 st.title("Telegram Bot with Streamlit")
+st.write("The bot is running in the background. Interact with it through Telegram.")
 
 # Fetch bot status and start time
 bot_status = get_bot_status()
@@ -54,8 +55,6 @@ if log_lines:
 else:
     st.write("No recent activity.")
 
-st.title("Telegram Bot with Streamlit")
-st.write("The bot is running in the background. Interact with it through Telegram.")
 
 # Simulated bot status and uptime (replace with real data)
 bot_status = "Running"
