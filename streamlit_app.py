@@ -1,8 +1,19 @@
 import logging
 import threading
 import streamlit as st
+import datetime
 from telegram import Update ,ReplyKeyboardMarkup, Bot, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext, CallbackQueryHandler
+
+st.title("Telegram Bot with Streamlit")
+st.write("The bot is running in the background. Interact with it through Telegram.")
+
+# Simulated bot status and uptime (replace with real data)
+bot_status = "Running"
+start_time = datetime.datetime.now() - datetime.timedelta(hours=2, minutes=30)  # Example start time
+
+st.write(f"**Bot Status:** {bot_status}")
+st.write(f"**Uptime:** {str(datetime.datetime.now() - start_time).split('.')[0]}")
 
 def send_message(update: Update, text: str, parse_mode='Markdown'):
     if update.callback_query:
@@ -421,6 +432,3 @@ def main():
 if __name__ == '__main__':
     bot_thread = threading.Thread(target=main)
     bot_thread.start()
-
-st.title("Telegram Bot with Streamlit")
-st.write("The bot is running in the background. Interact with it through Telegram.")
