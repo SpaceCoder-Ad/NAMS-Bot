@@ -48,30 +48,24 @@ def button_click(update: Update, context: CallbackContext) -> None:
         query = update.callback_query
         query.answer()
         logger.info(f"Button clicked: {query.data}")
-    # if query.data == 'services':
-    #         services(update, context)
-    # query = update.callback_query
-    # query.answer()
 
-    # print(f"Callback data received: {query.data}")  # Debugging line
-
-    # Call the corresponding function based on button click
-    if query.data == 'services':
-        services(update, context)
-    elif query.data == 'apply':
-        apply(update, context)
-    elif query.data == 'contact':
-        contact(update, context)
-    elif query.data == 'faq':
-        faq(update, context)
-    elif query.data == 'destinations':
-        destinations(update, context)
-    elif query.data == 'achievements':
-        achievements(update, context)
-    else:
-        query.message.reply_text("Unknown command. Please try again.")
-        
-     except Exception as e:
+        # Call the corresponding function based on button click
+        if query.data == 'services':
+            services(update, context)
+        elif query.data == 'apply':
+            apply(update, context)
+        elif query.data == 'contact':
+            contact(update, context)
+        elif query.data == 'faq':
+            faq(update, context)
+        elif query.data == 'destinations':
+            destinations(update, context)
+        elif query.data == 'achievements':
+            achievements(update, context)
+        else:
+            query.message.reply_text("Unknown command. Please try again.")
+    
+    except Exception as e:
         logger.error(f"Error in button click handler: {e}")
         query.message.reply_text("An error occurred. Please try again.")
 
