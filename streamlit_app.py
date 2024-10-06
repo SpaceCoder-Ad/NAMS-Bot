@@ -49,6 +49,23 @@ def button_click(update: Update, context: CallbackContext) -> None:
         query.answer()
         logger.info(f"Button clicked: {query.data}")
 
+        # Dictionary mapping button data to functions
+        button_actions = {
+            'services': services,
+            'apply': apply,
+            'contact': contact,
+            'faq': faq,
+            'destinations': destinations,
+            'achievements': achievements
+        }
+        
+        # Get the function associated with the button clicked, if any
+        action = button_actions.get(query.data)
+        if action:
+            action(update, context)  # Call the associated function
+        else:
+            query.message.reply_text("Unknown command. Please try again.")
+        
         # Call the corresponding function based on button click
         if query.data == 'services':
             services(update, context)
