@@ -137,7 +137,7 @@ def services(update: Update, context: CallbackContext) -> None:
     #     # Respond directly to the message if the command is typed
     #     update.message.reply_text(services_message, parse_mode='Markdown')
     welcome_message(services_message)
-    welcome_message(services_message)
+    # welcome_message(services_message)
 
 # Function to handle the /destinations command
 def destinations(update: Update, context: CallbackContext) -> None:
