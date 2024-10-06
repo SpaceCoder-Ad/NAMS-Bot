@@ -31,8 +31,8 @@ def start(update: Update, context: CallbackContext) -> None:
         # "- For *Destinations*, type /destinations\n"
         # "- For *Our Achievements*, type /achievements"
     )
-    send_message(welcome_message)
-    # update.message.reply_text(welcome_message, parse_mode='Markdown', reply_markup=reply_markup)
+    # send_message(welcome_message)
+    update.message.reply_text(welcome_message, parse_mode='Markdown', reply_markup=reply_markup)
 
 # Setup logging
 logging.basicConfig(
