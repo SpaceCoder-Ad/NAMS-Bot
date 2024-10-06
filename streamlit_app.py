@@ -285,7 +285,7 @@ def contact(update: Update, context: CallbackContext) -> None:
         "- For inquiries and more information:\n\n"
         "📞 Phone: \n       +251-929-444-144,\n       +251-911-764-507\n"
         "*📧 Email*: \n         Namsoneducation@gmail.com,\n         info@namsconsultancy.com\n"
-        "*📍 Location*: [Tropical Mall, Office #405, Addis Ababa, Ethiopia](https://maps.google.com/?q=8.991310,38.783470)\n"
+        "*📍 Location*: [Bole Tropical Mall Next to Ramada Hotel, Office #405, Addis Ababa, Ethiopia](https://maps.google.com/?q=8.991310,38.783470)\n"
         "*📦 P.O. Box*: 2371\n\n"
         "*🔗 Social Media*:\n"
         "- **Instagram** 📸 [Namsedu02](https://www.instagram.com/Namsedu02/)\n"
