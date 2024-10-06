@@ -1,3 +1,4 @@
+import streamlit as st
 from telegram import Update ,ReplyKeyboardMarkup, Bot, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext, CallbackQueryHandler
 
@@ -30,7 +31,7 @@ def button_click(update: Update, context: CallbackContext) -> None:
     query = update.callback_query
     query.answer()
 
-    print(f"Callback data received: {query.data}")  # Debugging line
+    # print(f"Callback data received: {query.data}")  # Debugging line
 
     # Call the corresponding function based on button click
     if query.data == 'services':
@@ -312,7 +313,9 @@ def handle_message(update: Update, context: CallbackContext) -> None:
 # Main function to start the bot
 def main():
     # Replace 'YOUR_API_TOKEN' with the bot token from BotFather
-    updater = Updater("7859553921:AAHDfvkoNlX48XZg3dMQZyM7yIfwZMsZMow", use_context=True)
+    bot_token = st.secrets["7859553921:AAHDfvkoNlX48XZg3dMQZyM7yIfwZMsZMow"]
+    updater = Updater(bot_token, use_context=True)
+    # updater = Updater("7859553921:AAHDfvkoNlX48XZg3dMQZyM7yIfwZMsZMow", use_context=True)
     dp = updater.dispatcher
 
     # Register command handlers
