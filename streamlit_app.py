@@ -1,8 +1,14 @@
+import logging
 import threading
 import streamlit as st
 from telegram import Update ,ReplyKeyboardMarkup, Bot, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext, CallbackQueryHandler
 
+def send_message(update: Update, text: str, parse_mode='Markdown'):
+    if update.callback_query:
+        update.callback_query.message.reply_text(text, parse_mode=parse_mode)
+    else:
+        update.message.reply_text(text, parse_mode=parse_mode)
 
 # Function to handle the /start command
 def start(update: Update, context: CallbackContext) -> None:
@@ -25,12 +31,27 @@ def start(update: Update, context: CallbackContext) -> None:
         # "- For *Destinations*, type /destinations\n"
         # "- For *Our Achievements*, type /achievements"
     )
-    update.message.reply_text(welcome_message, parse_mode='Markdown', reply_markup=reply_markup)
+    send_message(welcome_message)
+    # update.message.reply_text(welcome_message, parse_mode='Markdown', reply_markup=reply_markup)
+
+# Setup logging
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
+
+logger = logging.getLogger(__name__
 
 # Function to handle button clicks
 def button_click(update: Update, context: CallbackContext) -> None:
-    query = update.callback_query
-    query.answer()
+    try:
+        query = update.callback_query
+        query.answer()
+        logger.info(f"Button clicked: {query.data}")
+    if query.data == 'services':
+            services(update, context)
+    # query = update.callback_query
+    # query.answer()
 
     # print(f"Callback data received: {query.data}")  # Debugging line
 
@@ -49,6 +70,10 @@ def button_click(update: Update, context: CallbackContext) -> None:
         achievements(update, context)
     else:
         query.message.reply_text("Unknown command. Please try again.")
+        
+     except Exception as e:
+        logger.error(f"Error in button click handler: {e}")
+        query.message.reply_text("An error occurred. Please try again.")
 
 # Function to handle the /services command
 def services(update: Update, context: CallbackContext) -> None:
@@ -110,14 +135,14 @@ def services(update: Update, context: CallbackContext) -> None:
         "Guidance in visa interview preparation, including mock interviews and much more!"
     )
     # update.message.reply_text(services_message, parse_mode='Markdown')
-    # services_message = "Services message content here..."
     # update.callback_query.message.reply_text(services_message, parse_mode='Markdown')
-    if update.callback_query:
-        # Respond to the callback query if it's a button click
-        update.callback_query.message.reply_text(services_message, parse_mode='Markdown')
-    else:
-        # Respond directly to the message if the command is typed
-        update.message.reply_text(services_message, parse_mode='Markdown')
+    # if update.callback_query:
+    #     # Respond to the callback query if it's a button click
+    #     update.callback_query.message.reply_text(services_message, parse_mode='Markdown')
+    # else:
+    #     # Respond directly to the message if the command is typed
+    #     update.message.reply_text(services_message, parse_mode='Markdown')
+        welcome_message(services_message)
 
 # Function to handle the /destinations command
 def destinations(update: Update, context: CallbackContext) -> None:
@@ -206,12 +231,13 @@ def destinations(update: Update, context: CallbackContext) -> None:
         "The UAE is a business hub, offering valuable networking opportunities alongside education."
     )
     # update.callback_query.message.reply_text(destinations_message, parse_mode='Markdown')
-    if update.callback_query:
-        # Respond to the callback query if it's a button click
-        update.callback_query.message.reply_text(destinations_message, parse_mode='Markdown')
-    else:
-        # Respond directly to the message if the command is typed
-        update.message.reply_text(destinations_message, parse_mode='Markdown')
+    # if update.callback_query:
+    #     # Respond to the callback query if it's a button click
+    #     update.callback_query.message.reply_text(destinations_message, parse_mode='Markdown')
+    # else:
+    #     # Respond directly to the message if the command is typed
+    #     update.message.reply_text(destinations_message, parse_mode='Markdown')
+    send_message(destinations_message)
 
 # Function to handle the /faq command
 def faq(update: Update, context: CallbackContext) -> None:
@@ -254,12 +280,13 @@ def faq(update: Update, context: CallbackContext) -> None:
         "A9: Applications typically take between two to six weeks but may vary during peak periods."
     )
     # update.callback_query.message.reply_text(faq_message, parse_mode='Markdown')
-    if update.callback_query:
-        # Respond to the callback query if it's a button click
-        update.callback_query.message.reply_text(faq_message, parse_mode='Markdown')
-    else:
-        # Respond directly to the message if the command is typed
-        update.message.reply_text(faq_message, parse_mode='Markdown')
+    # if update.callback_query:
+    #     # Respond to the callback query if it's a button click
+    #     update.callback_query.message.reply_text(faq_message, parse_mode='Markdown')
+    # else:
+    #     # Respond directly to the message if the command is typed
+    #     update.message.reply_text(faq_message, parse_mode='Markdown')
+    send_message(faq_message)
 
 # Function to handle the /apply command
 def apply(update: Update, context: CallbackContext) -> None:
@@ -271,12 +298,13 @@ def apply(update: Update, context: CallbackContext) -> None:
         "For more detailed guidance on the application process, /contact us directly, or schedule an appointment with one of our counselors."
     )
     # update.callback_query.message.reply_text(apply_message, parse_mode='Markdown')
-    if update.callback_query:
-        # Respond to the callback query if it's a button click
-        update.callback_query.message.reply_text(apply_message, parse_mode='Markdown')
-    else:
-        # Respond directly to the message if the command is typed
-        update.message.reply_text(apply_message, parse_mode='Markdown')
+    # if update.callback_query:
+    #     # Respond to the callback query if it's a button click
+    #     update.callback_query.message.reply_text(apply_message, parse_mode='Markdown')
+    # else:
+    #     # Respond directly to the message if the command is typed
+    #     update.message.reply_text(apply_message, parse_mode='Markdown')
+    send_message(apply_message)
 
 # Function to handle the /contact command
 def contact(update: Update, context: CallbackContext) -> None:
@@ -297,12 +325,13 @@ def contact(update: Update, context: CallbackContext) -> None:
         "We're here to help you achieve your academic goals! 🎓"
     )
     # update.callback_query.message.reply_text(contact_message, parse_mode='Markdown')
-    if update.callback_query:
-        # Respond to the callback query if it's a button click
-        update.callback_query.message.reply_text(contact_message, parse_mode='Markdown')
-    else:
-        # Respond directly to the message if the command is typed
-        update.message.reply_text(contact_message, parse_mode='Markdown')
+    # if update.callback_query:
+    #     # Respond to the callback query if it's a button click
+    #     update.callback_query.message.reply_text(contact_message, parse_mode='Markdown')
+    # else:
+    #     # Respond directly to the message if the command is typed
+    #     update.message.reply_text(contact_message, parse_mode='Markdown')
+    send_message(contact_message)
 
 # Function to handle the /achievements command
 def achievements(update: Update, context: CallbackContext) -> None:
@@ -318,12 +347,13 @@ def achievements(update: Update, context: CallbackContext) -> None:
         "Let us help you be part of our success story! "
     )
     # update.callback_query.message.reply_text(achievements_message, parse_mode='Markdown')
-    if update.callback_query:
-        # Respond to the callback query if it's a button click
-        update.callback_query.message.reply_text(achievements_message, parse_mode='Markdown')
-    else:
-        # Respond directly to the message if the command is typed
-        update.message.reply_text(achievements_message, parse_mode='Markdown')
+    # if update.callback_query:
+    #     # Respond to the callback query if it's a button click
+    #     update.callback_query.message.reply_text(achievements_message, parse_mode='Markdown')
+    # else:
+    #     # Respond directly to the message if the command is typed
+    #     update.message.reply_text(achievements_message, parse_mode='Markdown')
+    send_message(achievements_message)
 
 
 
