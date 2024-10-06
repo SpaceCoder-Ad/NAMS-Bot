@@ -130,14 +130,14 @@ def services(update: Update, context: CallbackContext) -> None:
     )
     # update.message.reply_text(services_message, parse_mode='Markdown')
     # update.callback_query.message.reply_text(services_message, parse_mode='Markdown')
-    # if update.callback_query:
-    #     # Respond to the callback query if it's a button click
-    #     update.callback_query.message.reply_text(services_message, parse_mode='Markdown')
-    # else:
-    #     # Respond directly to the message if the command is typed
-    #     update.message.reply_text(services_message, parse_mode='Markdown')
+    if update.callback_query:
+        # Respond to the callback query if it's a button click
+        update.callback_query.message.reply_text(services_message, parse_mode='Markdown')
+    else:
+        # Respond directly to the message if the command is typed
+        update.message.reply_text(services_message, parse_mode='Markdown')
     # welcome_message(update, services_message)
-    welcome_message(services_message)
+    # welcome_message(services_message)
 
 # Function to handle the /destinations command
 def destinations(update: Update, context: CallbackContext) -> None:
