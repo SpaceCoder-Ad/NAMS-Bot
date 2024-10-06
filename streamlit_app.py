@@ -232,7 +232,7 @@ def destinations(update: Update, context: CallbackContext) -> None:
     # else:
     #     # Respond directly to the message if the command is typed
     #     update.message.reply_text(destinations_message, parse_mode='Markdown')
-    send_message(destinations_message)
+    send_message(update, destinations_message)
 
 # Function to handle the /faq command
 def faq(update: Update, context: CallbackContext) -> None:
@@ -281,7 +281,7 @@ def faq(update: Update, context: CallbackContext) -> None:
     # else:
     #     # Respond directly to the message if the command is typed
     #     update.message.reply_text(faq_message, parse_mode='Markdown')
-    send_message(faq_message)
+    send_message(update, faq_message)
 
 # Function to handle the /apply command
 def apply(update: Update, context: CallbackContext) -> None:
@@ -299,7 +299,7 @@ def apply(update: Update, context: CallbackContext) -> None:
     # else:
     #     # Respond directly to the message if the command is typed
     #     update.message.reply_text(apply_message, parse_mode='Markdown')
-    send_message(apply_message)
+    send_message(update, apply_message)
 
 # Function to handle the /contact command
 def contact(update: Update, context: CallbackContext) -> None:
@@ -326,7 +326,7 @@ def contact(update: Update, context: CallbackContext) -> None:
     # else:
     #     # Respond directly to the message if the command is typed
     #     update.message.reply_text(contact_message, parse_mode='Markdown')
-    send_message(contact_message)
+    send_message(update, contact_message)
 
 # Function to handle the /achievements command
 def achievements(update: Update, context: CallbackContext) -> None:
@@ -348,7 +348,7 @@ def achievements(update: Update, context: CallbackContext) -> None:
     # else:
     #     # Respond directly to the message if the command is typed
     #     update.message.reply_text(achievements_message, parse_mode='Markdown')
-    send_message(achievements_message)
+    send_message(update, achievements_message)
 
 
 
