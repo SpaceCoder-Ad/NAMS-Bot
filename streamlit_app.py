@@ -7,52 +7,52 @@ import os
 from telegram import Update ,ReplyKeyboardMarkup, Bot, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext, CallbackQueryHandler
 
-# Function to get the bot status
-def get_bot_status():
-    if os.path.exists("bot_status.txt"):
-        with open("bot_status.txt", "r") as f:
-            return f.read().strip()
-    else:
-        return "Stopped"
+# # Function to get the bot status
+# def get_bot_status():
+#     if os.path.exists("bot_status.txt"):
+#         with open("bot_status.txt", "r") as f:
+#             return f.read().strip()
+#     else:
+#         return "Stopped"
 
-# Simulate reading actual start time
-def get_bot_start_time():
-    if os.path.exists("start_time.txt"):
-        with open("start_time.txt", "r") as f:
-            start_time_str = f.read().strip()
-            return datetime.datetime.fromisoformat(start_time_str)
-    return None
+# # Simulate reading actual start time
+# def get_bot_start_time():
+#     if os.path.exists("start_time.txt"):
+#         with open("start_time.txt", "r") as f:
+#             start_time_str = f.read().strip()
+#             return datetime.datetime.fromisoformat(start_time_str)
+#     return None
 
-# Function to read log file
-def read_log_file():
-    if os.path.exists("bot_log.txt"):
-        with open("bot_log.txt", "r") as f:
-            return f.readlines()
-    return []
+# # Function to read log file
+# def read_log_file():
+#     if os.path.exists("bot_log.txt"):
+#         with open("bot_log.txt", "r") as f:
+#             return f.readlines()
+#     return []
 
-# Main Streamlit content
-st.title("Telegram Bot with Streamlit")
+# # Main Streamlit content
+# st.title("Telegram Bot with Streamlit")
 
-# Fetch bot status and start time
-bot_status = get_bot_status()
-start_time = get_bot_start_time()
+# # Fetch bot status and start time
+# bot_status = get_bot_status()
+# start_time = get_bot_start_time()
 
-# If start_time is None, the bot might not have started
-if bot_status == "Running" and start_time:
-    st.write(f"**Bot Status:** {bot_status}")
-    uptime = datetime.datetime.now() - start_time
-    st.write(f"**Uptime:** {str(uptime).split('.')[0]}")
-else:
-    st.write("**Bot Status:** Stopped")
+# # If start_time is None, the bot might not have started
+# if bot_status == "Running" and start_time:
+#     st.write(f"**Bot Status:** {bot_status}")
+#     uptime = datetime.datetime.now() - start_time
+#     st.write(f"**Uptime:** {str(uptime).split('.')[0]}")
+# else:
+#     st.write("**Bot Status:** Stopped")
 
-# Display recent activity logs
-st.subheader("Recent Activity:")
-log_lines = read_log_file()
-if log_lines:
-    for line in log_lines:
-        st.write(line)
-else:
-    st.write("No recent activity.")
+# # Display recent activity logs
+# st.subheader("Recent Activity:")
+# log_lines = read_log_file()
+# if log_lines:
+#     for line in log_lines:
+#         st.write(line)
+# else:
+#     st.write("No recent activity.")
 
 
 # Simulated bot status and uptime (replace with real data)
