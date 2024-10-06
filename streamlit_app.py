@@ -128,16 +128,26 @@ def services(update: Update, context: CallbackContext) -> None:
         "4. *Student Visas* ✈️\n"
         "Guidance in visa interview preparation, including mock interviews and much more!"
     )
-    # update.message.reply_text(services_message, parse_mode='Markdown')
-    # update.callback_query.message.reply_text(services_message, parse_mode='Markdown')
-    if update.callback_query:
-        # Respond to the callback query if it's a button click
-        update.callback_query.message.reply_text(services_message, parse_mode='Markdown')
-    else:
-        # Respond directly to the message if the command is typed
-        update.message.reply_text(services_message, parse_mode='Markdown')
-    # welcome_message(update, services_message)
-    # welcome_message(services_message)
+
+    try:
+        if update.callback_query:
+            # Respond to the callback query if it's a button click
+            update.callback_query.message.reply_text(services_message, parse_mode='Markdown')
+        elif update.message:
+            # Respond directly to the message if the command is typed
+            update.message.reply_text(services_message, parse_mode='Markdown')
+        else:
+            # If neither callback_query nor message exists
+            raise ValueError("No valid update type found")
+    except Exception as e:
+        # Log the error to see what happened
+        print(f"Error in services function: {e}")
+        # Inform the user that something went wrong
+        if update.callback_query:
+            update.callback_query.message.reply_text("An error occurred. Please try again.")
+        elif update.message:
+            update.message.reply_text("An error occurred. Please try again.")
+
 
 # Function to handle the /destinations command
 def destinations(update: Update, context: CallbackContext) -> None:
