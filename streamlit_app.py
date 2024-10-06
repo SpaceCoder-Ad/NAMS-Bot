@@ -48,8 +48,8 @@ def button_click(update: Update, context: CallbackContext) -> None:
         query = update.callback_query
         query.answer()
         logger.info(f"Button clicked: {query.data}")
-    if query.data == 'services':
-            services(update, context)
+    # if query.data == 'services':
+    #         services(update, context)
     # query = update.callback_query
     # query.answer()
 
