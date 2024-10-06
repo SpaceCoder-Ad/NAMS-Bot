@@ -1,3 +1,4 @@
+import threading
 import streamlit as st
 from telegram import Update ,ReplyKeyboardMarkup, Bot, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext, CallbackQueryHandler
@@ -6,23 +7,23 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 # Function to handle the /start command
 def start(update: Update, context: CallbackContext) -> None:
     keyboard = [
-            [InlineKeyboardButton("Service Info", callback_data='services')],
             [InlineKeyboardButton("Apply", callback_data='apply')],
-            [InlineKeyboardButton("Contact Us", callback_data='contact')],
-            [InlineKeyboardButton("FAQ", callback_data='faq')],
+            [InlineKeyboardButton("Service Info", callback_data='services')],
             [InlineKeyboardButton("Destinations", callback_data='destinations')],
-            [InlineKeyboardButton("Achievements", callback_data='achievements')]
+            [InlineKeyboardButton("Achievements", callback_data='achievements')],
+            [InlineKeyboardButton("Contact Us", callback_data='contact')],
+            [InlineKeyboardButton("FAQ", callback_data='faq')]
         ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     welcome_message = (
         "*🌟 Welcome to NAMS Educational Consultancy!*\n\n"
         "How can we assist you today?\n"
-        "- For *Course details*, type /services\n"
-        "- For *Application Process*, type /apply\n"
-        "- For *Contact Info*, type /contact\n"
-        "- For *Frequently Asked Questions*, type /faq\n"
-        "- For *Destinations*, type /destinations\n"
-        "- For *Our Achievements*, type /achievements"
+        # "- For *Course details*, type /services\n"
+        # "- For *Application Process*, type /apply\n"
+        # "- For *Contact Info*, type /contact\n"
+        # "- For *Frequently Asked Questions*, type /faq\n"
+        # "- For *Destinations*, type /destinations\n"
+        # "- For *Our Achievements*, type /achievements"
     )
     update.message.reply_text(welcome_message, parse_mode='Markdown', reply_markup=reply_markup)
 
@@ -110,8 +111,13 @@ def services(update: Update, context: CallbackContext) -> None:
     )
     # update.message.reply_text(services_message, parse_mode='Markdown')
     # services_message = "Services message content here..."
-    update.callback_query.message.reply_text(services_message, parse_mode='Markdown')
-
+    # update.callback_query.message.reply_text(services_message, parse_mode='Markdown')
+    if update.callback_query:
+        # Respond to the callback query if it's a button click
+        update.callback_query.message.reply_text(services_message, parse_mode='Markdown')
+    else:
+        # Respond directly to the message if the command is typed
+        update.message.reply_text(services_message, parse_mode='Markdown')
 
 # Function to handle the /destinations command
 def destinations(update: Update, context: CallbackContext) -> None:
@@ -199,7 +205,13 @@ def destinations(update: Update, context: CallbackContext) -> None:
         "*🇦🇪 United Arab Emirates*\n"
         "The UAE is a business hub, offering valuable networking opportunities alongside education."
     )
-    update.callback_query.message.reply_text(destinations_message, parse_mode='Markdown')
+    # update.callback_query.message.reply_text(destinations_message, parse_mode='Markdown')
+    if update.callback_query:
+        # Respond to the callback query if it's a button click
+        update.callback_query.message.reply_text(destinations_message, parse_mode='Markdown')
+    else:
+        # Respond directly to the message if the command is typed
+        update.message.reply_text(destinations_message, parse_mode='Markdown')
 
 # Function to handle the /faq command
 def faq(update: Update, context: CallbackContext) -> None:
@@ -241,7 +253,13 @@ def faq(update: Update, context: CallbackContext) -> None:
         "*Q9: How long do applications take to process?* ⏳\n"
         "A9: Applications typically take between two to six weeks but may vary during peak periods."
     )
-    update.callback_query.message.reply_text(faq_message, parse_mode='Markdown')
+    # update.callback_query.message.reply_text(faq_message, parse_mode='Markdown')
+    if update.callback_query:
+        # Respond to the callback query if it's a button click
+        update.callback_query.message.reply_text(faq_message, parse_mode='Markdown')
+    else:
+        # Respond directly to the message if the command is typed
+        update.message.reply_text(faq_message, parse_mode='Markdown')
 
 # Function to handle the /apply command
 def apply(update: Update, context: CallbackContext) -> None:
@@ -252,15 +270,21 @@ def apply(update: Update, context: CallbackContext) -> None:
 
         "For more detailed guidance on the application process, /contact us directly, or schedule an appointment with one of our counselors."
     )
-    update.callback_query.message.reply_text(apply_message, parse_mode='Markdown')
+    # update.callback_query.message.reply_text(apply_message, parse_mode='Markdown')
+    if update.callback_query:
+        # Respond to the callback query if it's a button click
+        update.callback_query.message.reply_text(apply_message, parse_mode='Markdown')
+    else:
+        # Respond directly to the message if the command is typed
+        update.message.reply_text(apply_message, parse_mode='Markdown')
 
 # Function to handle the /contact command
 def contact(update: Update, context: CallbackContext) -> None:
     contact_message = (
         "*📞 Contact Us:*\n"
         "- For inquiries and more information:\n\n"
-        "📞 Phone: +251-929-444-144, +251-911-764-507\n"
-        "*📧 Email*: Namsoneducation@gmail.com,\n                    info@namsconsultancy.com\n"
+        "📞 Phone: \n       +251-929-444-144,\n       +251-911-764-507\n"
+        "*📧 Email*: \n         Namsoneducation@gmail.com,\n         info@namsconsultancy.com\n"
         "*📍 Location*: [Tropical Mall, Office #405, Addis Ababa, Ethiopia](https://maps.google.com/?q=8.991310,38.783470)\n"
         "*📦 P.O. Box*: 2371\n\n"
         "*🔗 Social Media*:\n"
@@ -272,7 +296,13 @@ def contact(update: Update, context: CallbackContext) -> None:
         # "🏢 Address: NAMS Educational Consultancy, Addis Ababa, Ethiopia\n\n"
         "We're here to help you achieve your academic goals! 🎓"
     )
-    update.callback_query.message.reply_text(contact_message, parse_mode='Markdown')
+    # update.callback_query.message.reply_text(contact_message, parse_mode='Markdown')
+    if update.callback_query:
+        # Respond to the callback query if it's a button click
+        update.callback_query.message.reply_text(contact_message, parse_mode='Markdown')
+    else:
+        # Respond directly to the message if the command is typed
+        update.message.reply_text(contact_message, parse_mode='Markdown')
 
 # Function to handle the /achievements command
 def achievements(update: Update, context: CallbackContext) -> None:
@@ -287,7 +317,14 @@ def achievements(update: Update, context: CallbackContext) -> None:
         "- Helped students secure job placements after graduation in various industries 💼\n\n"
         "Let us help you be part of our success story! "
     )
-    update.callback_query.message.reply_text(achievements_message, parse_mode='Markdown')
+    # update.callback_query.message.reply_text(achievements_message, parse_mode='Markdown')
+    if update.callback_query:
+        # Respond to the callback query if it's a button click
+        update.callback_query.message.reply_text(achievements_message, parse_mode='Markdown')
+    else:
+        # Respond directly to the message if the command is typed
+        update.message.reply_text(achievements_message, parse_mode='Markdown')
+
 
 
 # Function to handle messages not linked to a command
@@ -313,7 +350,9 @@ def handle_message(update: Update, context: CallbackContext) -> None:
 # Main function to start the bot
 def main():
     # Replace 'YOUR_API_TOKEN' with the bot token from BotFather
-    bot_token = st.secrets["7859553921:AAHDfvkoNlX48XZg3dMQZyM7yIfwZMsZMow"]
+    # bot_token = st.secrets["7859553921:AAHDfvkoNlX48XZg3dMQZyM7yIfwZMsZMow"]
+    bot_token = st.secrets["general"]["telegram_bot_token"]
+    # bot_token = st.secrets["telegram_bot_token"]
     updater = Updater(bot_token, use_context=True)
     # updater = Updater("7859553921:AAHDfvkoNlX48XZg3dMQZyM7yIfwZMsZMow", use_context=True)
     dp = updater.dispatcher
@@ -335,7 +374,15 @@ def main():
     updater.start_polling()
 
     # Run the bot until you press Ctrl+C
-    updater.idle()
+    # updater.idle()
 
+# if __name__ == '__main__':
+#     main()
+
+# Running the bot in a separate thread so it doesn't block Streamlit
 if __name__ == '__main__':
-    main()
+    bot_thread = threading.Thread(target=main)
+    bot_thread.start()
+
+st.title("Telegram Bot with Streamlit")
+st.write("The bot is running in the background. Interact with it through Telegram.")
