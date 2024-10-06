@@ -2,6 +2,7 @@ import logging
 import threading
 import streamlit as st
 import datetime
+import time
 from telegram import Update ,ReplyKeyboardMarkup, Bot, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext, CallbackQueryHandler
 
@@ -12,8 +13,32 @@ st.write("The bot is running in the background. Interact with it through Telegra
 bot_status = "Running"
 start_time = datetime.datetime.now() - datetime.timedelta(hours=2, minutes=30)  # Example start time
 
+st.subheader("How to Use the Bot:")
+st.write("""
+1. Open Telegram and search for the bot by its username.
+2. Use any of the following commands:
+    - `/start` - Start interacting with the bot
+    - `/help` - Get a list of available commands
+    - `/services` - View available services
+    - `/apply` - Submit an application
+    - `/contact` - Get in touch
+""")
+
+
 st.write(f"**Bot Status:** {bot_status}")
 st.write(f"**Uptime:** {str(datetime.datetime.now() - start_time).split('.')[0]}")
+
+st.subheader("Recent Activity:")
+log = ["Bot started", "User1 clicked 'services'", "User2 asked for 'contact' info"]
+
+for entry in log:
+    st.write(entry)
+    time.sleep(1)
+
+st.subheader("Bot Usage Stats:")
+st.write("**Total Users:** 152")
+st.write("**Commands Processed Today:** 84")
+
 
 def send_message(update: Update, text: str, parse_mode='Markdown'):
     if update.callback_query:
