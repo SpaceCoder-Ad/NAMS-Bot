@@ -31,8 +31,8 @@ def start(update: Update, context: CallbackContext) -> None:
         # "- For *Destinations*, type /destinations\n"
         # "- For *Our Achievements*, type /achievements"
     )
-    # send_message(welcome_message)
-    update.message.reply_text(welcome_message, parse_mode='Markdown', reply_markup=reply_markup)
+    send_message(update, welcome_message)
+    # update.message.reply_text(welcome_message, parse_mode='Markdown', reply_markup=reply_markup)
 
 # Setup logging
 logging.basicConfig(
@@ -136,8 +136,8 @@ def services(update: Update, context: CallbackContext) -> None:
     # else:
     #     # Respond directly to the message if the command is typed
     #     update.message.reply_text(services_message, parse_mode='Markdown')
+    # welcome_message(update, services_message)
     welcome_message(services_message)
-    # welcome_message(services_message)
 
 # Function to handle the /destinations command
 def destinations(update: Update, context: CallbackContext) -> None:
@@ -293,13 +293,13 @@ def apply(update: Update, context: CallbackContext) -> None:
         "For more detailed guidance on the application process, /contact us directly, or schedule an appointment with one of our counselors."
     )
     # update.callback_query.message.reply_text(apply_message, parse_mode='Markdown')
-    # if update.callback_query:
-    #     # Respond to the callback query if it's a button click
-    #     update.callback_query.message.reply_text(apply_message, parse_mode='Markdown')
-    # else:
-    #     # Respond directly to the message if the command is typed
-    #     update.message.reply_text(apply_message, parse_mode='Markdown')
-    send_message(update, apply_message)
+    if update.callback_query:
+        # Respond to the callback query if it's a button click
+        update.callback_query.message.reply_text(apply_message, parse_mode='Markdown')
+    else:
+        # Respond directly to the message if the command is typed
+        update.message.reply_text(apply_message, parse_mode='Markdown')
+    # send_message(update, apply_message)
 
 # Function to handle the /contact command
 def contact(update: Update, context: CallbackContext) -> None:
