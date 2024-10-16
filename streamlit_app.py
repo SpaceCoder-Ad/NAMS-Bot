@@ -4,7 +4,7 @@ import streamlit as st
 from telegram import Update ,ReplyKeyboardMarkup, Bot, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext, CallbackQueryHandler
 
- st.stop()
+st.stop()
 
 def send_message(update: Update, text: str, parse_mode='Markdown'):
     if update.callback_query:
